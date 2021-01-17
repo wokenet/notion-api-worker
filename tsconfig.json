@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": ["es2017", "DOM", "DOM.Iterable", "WebWorker"],
+    "types": ["@cloudflare/workers-types"],
+    "alwaysStrict": true,
+    "strict": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["./*.ts", "./**/*.ts"],
+  "exclude": ["node_modules/", "dist/"]
+}

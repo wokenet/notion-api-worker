@@ -1,0 +1,11 @@
+name = "woke-notion-worker"
+type = "webpack"
+webpack_config = "webpack.config.js"
+routes = [
+  "api.woke.net/streamers/*",
+]
+
+[vars]
+INDEX_PAGE = "243b9b9e-0a3a-4460-b9a4-3abccf27126f"
+TTL = 600  # 10m
+IMAGE_TTL = 21600  # 6h
