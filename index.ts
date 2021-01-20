@@ -95,7 +95,6 @@ router.get(
   async ({ params: { pageId, imgId, imgName } }: RouteParams) => {
     const resp = fetch(
       `${imgUrlPrefix}${pageId}%2F${imgName}?table=block&id=${imgId}&cache=v2`,
-      { cf: { cacheTtl: IMAGE_TTL } },
     )
     return resp
   },
