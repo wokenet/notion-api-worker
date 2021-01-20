@@ -36,7 +36,9 @@ async function getStreamerIndex(url: URL) {
     collectionView.value.id,
   )
   const rows: Array<{ [k: string]: any }> = origRows.map((r) =>
-    mapKeys(r, (v, k) => camelCase(k)),
+    mapKeys(r, (v, k) =>
+      k === 'CashApp' || k === 'PayPal' ? k.toLowerCase : camelCase(k),
+    ),
   )
   for (const row of rows) {
     const photoUrlStr = row.photo?.[0]?.url
