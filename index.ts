@@ -63,6 +63,11 @@ async function getStreamerIndex(url: URL) {
     }
 
     row.photo = `${url.origin}/streamers/${pageId}/${imgId}/${imgName}`
+
+    // Work around issue with empty creators list
+    if (row.creators?.length === 1 && row.creators[0] === '') {
+      delete row.creators
+    }
   }
   return new Response(JSON.stringify(rows), {
     status: 200,
