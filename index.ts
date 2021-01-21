@@ -37,7 +37,7 @@ async function getStreamerIndex(url: URL) {
   )
   const rows: Array<{ [k: string]: any }> = origRows.map((r) =>
     mapKeys(r, (v, k) =>
-      k === 'CashApp' || k === 'PayPal' ? k.toLowerCase : camelCase(k),
+      k === 'CashApp' || k === 'PayPal' ? k.toLowerCase() : camelCase(k),
     ),
   )
   for (const row of rows) {
