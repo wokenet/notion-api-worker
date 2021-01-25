@@ -64,7 +64,7 @@ async function getStreamerIndex(url: URL) {
 
     row.photo = `${url.origin}/streamers/${pageId}/${imgId}/${imgName}`
 
-    row.slug = kebabCase(row.name)
+    row.slug = kebabCase(row.name.toLowerCase())
 
     // Work around issue with empty creators list
     if (row.creators?.length === 1 && row.creators[0] === '') {
