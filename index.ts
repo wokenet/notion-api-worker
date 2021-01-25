@@ -1,4 +1,4 @@
-import { camelCase, first, mapKeys } from 'lodash'
+import { camelCase, first, kebabCase, mapKeys } from 'lodash'
 import { Router, Method } from 'tiny-request-router'
 
 import { fetchPageById } from 'notion-api-worker/src/api/notion'
@@ -63,6 +63,8 @@ async function getStreamerIndex(url: URL) {
     }
 
     row.photo = `${url.origin}/streamers/${pageId}/${imgId}/${imgName}`
+
+    row.slug = kebabCase(row.name)
 
     // Work around issue with empty creators list
     if (row.creators?.length === 1 && row.creators[0] === '') {
