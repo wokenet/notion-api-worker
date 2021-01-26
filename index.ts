@@ -35,11 +35,13 @@ async function getStreamerIndex(url: URL) {
     collection,
     collectionView.value.id,
   )
-  const rows: Array<{ [k: string]: any }> = origRows.map((r) =>
-    mapKeys(r, (v, k) =>
-      k === 'CashApp' || k === 'PayPal' ? k.toLowerCase() : camelCase(k),
-    ),
-  )
+  const rows: Array<{ [k: string]: any }> = origRows
+    .map((r) =>
+      mapKeys(r, (v, k) =>
+        k === 'CashApp' || k === 'PayPal' ? k.toLowerCase() : camelCase(k),
+      ),
+    )
+    .filter((r) => r.name && r.publish)
   for (const row of rows) {
     row.slug = kebabCase(row.name.toLowerCase())
 
