@@ -41,6 +41,13 @@ async function getStreamerIndex(url: URL) {
     ),
   )
   for (const row of rows) {
+    row.slug = kebabCase(row.name.toLowerCase())
+
+    // Work around issue with empty creators list
+    if (row.creators?.length === 1 && row.creators[0] === '') {
+      delete row.creators
+    }
+
     const photoUrlStr = row.photo?.[0]?.url
 
     // If we quit early, omit image URLs we don't expect (to respect the origin)
@@ -63,13 +70,6 @@ async function getStreamerIndex(url: URL) {
     }
 
     row.photo = `${url.origin}/streamers/${pageId}/${imgId}/${imgName}`
-
-    row.slug = kebabCase(row.name.toLowerCase())
-
-    // Work around issue with empty creators list
-    if (row.creators?.length === 1 && row.creators[0] === '') {
-      delete row.creators
-    }
   }
   return new Response(JSON.stringify(rows), {
     status: 200,
