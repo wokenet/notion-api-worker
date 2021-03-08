@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.20",
-    "notion-api-worker": "git+https://github.com/chromakode/notion-api-worker#add-column-types",
+    "notion-api-worker": "git+https://github.com/splitbee/notion-api-worker.git",
     "tiny-request-router": "^1.2.2"
   }
 }
