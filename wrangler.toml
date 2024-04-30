@@ -1,10 +1,8 @@
 name = "woke-notion-worker"
-type = "webpack"
-webpack_config = "webpack.config.js"
-routes = [
-  "api.woke.net/streamers/*",
-]
+main = "./index.ts"
+compatibility_date = "2024-04-19"
+route = { pattern = "api.woke.net/streamers/*", zone_name = "woke.net" }
 
 [vars]
-INDEX_PAGE = "243b9b9e-0a3a-4460-b9a4-3abccf27126f"
+INDEX_DB = "243b9b9e-0a3a-4460-b9a4-3abccf27126f"
 TTL = 30

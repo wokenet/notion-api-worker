@@ -1,17 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "module": "commonjs",
-    "target": "es2017",
-    "lib": ["es2017", "DOM", "DOM.Iterable", "WebWorker"],
-    "types": ["@cloudflare/workers-types"],
-    "alwaysStrict": true,
+    "noEmit": true,
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext"],
     "strict": true,
-    "preserveConstEnums": true,
     "moduleResolution": "node",
-    "sourceMap": true,
-    "esModuleInterop": true
+    "types": ["@cloudflare/workers-types"]
   },
-  "include": ["./*.ts", "./**/*.ts"],
-  "exclude": ["node_modules/", "dist/"]
+  "exclude": ["node_modules"]
 }
