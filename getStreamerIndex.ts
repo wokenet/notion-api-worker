@@ -4,7 +4,13 @@ import { json } from 'itty-router'
 // @ts-expect-error module export types malformed
 import { notionToJson } from 'notion-json-lens'
 
-import { Client, collectPaginatedAPI, isFullPage } from '@notionhq/client'
+import {
+  Client,
+  collectPaginatedAPI,
+  isFullPage,
+  isNotionClientError,
+} from '@notionhq/client'
+import { GetPagePropertyResponse } from '@notionhq/client/build/src/api-endpoints'
 
 export async function getStreamerIndex(
   url: string,
@@ -57,10 +63,18 @@ export async function getStreamerPhoto(
 ) {
   const notion = new Client({ auth: NOTION_API_KEY })
 
-  const photo = await notion.pages.properties.retrieve({
-    page_id: pageId,
-    property_id: 'Photo',
-  })
+  let photo: GetPagePropertyResponse
+  try {
+    photo = await notion.pages.properties.retrieve({
+      page_id: pageId,
+      property_id: 'Photo',
+    })
+  } catch (err) {
+    if (isNotionClientError(err) && err.code === 'object_not_found') {
+      return null
+    }
+    throw err
+  }
 
   if (
     photo.type !== 'files' ||
