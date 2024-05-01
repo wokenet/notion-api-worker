@@ -1,5 +1,5 @@
 import { AutoRouter, IRequest, cors, error } from 'itty-router'
-import { getStreamerIndex, getStreamerPhoto } from './getStreamerIndex'
+import { getStreamerIndex, getStreamerPhoto } from './notion'
 
 const { preflight, corsify } = cors()
 
