@@ -38,10 +38,11 @@ export async function getStreamerIndex(
   for (const { id, props } of pages) {
     props.slug = kebabCase((props.slug ?? props.name).toLowerCase())
 
-    const photoName = props.photo?.[0]?.name
-    if (photoName) {
+    const photoURL = props.photo?.[0]?.file.url
+    if (photoURL) {
       const { origin } = new URL(url)
-      props.photo = `${origin}/streamers/${id}/${photoName}`
+      const { pathname: photoPath } = new URL(photoURL)
+      props.photo = `${origin}/streamers/${id}${photoPath}`
     } else {
       props.photo = null
     }

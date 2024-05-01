@@ -3,6 +3,8 @@ import { getStreamerIndex, getStreamerPhoto } from './notion'
 
 const { preflight, corsify } = cors()
 
+const cache = caches.default
+
 const router = AutoRouter<IRequest, [Env]>({
   before: [preflight],
   catch: (err) => {
@@ -17,14 +19,23 @@ router.get('/streamers/index.json', async ({ url }, env) => {
 })
 
 router.get(
-  '/streamers/:pageId/:imgName',
-  async ({ params: { pageId } }, env) => {
+  '/streamers/:pageId/:imgPath+',
+  async ({ params: { pageId, imgPath } }, env) => {
+    const cacheKey = `https://photo/${pageId}/${imgPath}`
+
+    const cachedResponse = await cache.match(cacheKey)
+    if (cachedResponse) {
+      return cachedResponse
+    }
+
     const imgURL = await getStreamerPhoto(pageId, env)
     if (!imgURL) {
       return error(404)
     }
-    const resp = await fetch(imgURL)
-    return resp
+    const response = await fetch(imgURL)
+    // @ts-expect-error https://github.com/cloudflare/workerd/issues/1383
+    await cache.put(cacheKey, response.clone())
+    return response
   },
 )
 
